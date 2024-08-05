@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<ITaskRepository, TaskRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
