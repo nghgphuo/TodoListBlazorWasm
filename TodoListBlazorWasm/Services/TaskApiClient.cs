@@ -1,7 +1,7 @@
 ﻿using System.Net.Http.Json;
 using TodoList.Models;
 
-namespace TodoListBlazorWasm.Serivces
+namespace TodoListBlazorWasm.Services
 {
     public class TaskApiClient : ITaskApiClient
     {
@@ -9,6 +9,12 @@ namespace TodoListBlazorWasm.Serivces
         public TaskApiClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
+        }
+
+        public async Task<TaskDto> GetTaskDetail(string id)
+        {
+            var result = await _httpClient.GetFromJsonAsync<TaskDto>($"/api/tasks/{id}");
+            return result;
         }
 
         public async Task<List<TaskDto>> GetTaskList()

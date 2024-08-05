@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
-using TodoListBlazorWasm.Serivces;
 using TodoList.Models;
+using TodoListBlazorWasm.Services;
 
 namespace TodoListBlazorWasm.Pages
 {
-    public partial class TodoList
+    public partial class TaskList
     {
         [Inject] private ITaskApiClient TaskApiClient { set; get; }
         private List<TaskDto> Tasks;

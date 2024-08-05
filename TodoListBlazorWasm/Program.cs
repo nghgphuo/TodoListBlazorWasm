@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using TodoListBlazorWasm;
-using TodoListBlazorWasm.Serivces;
-using static System.Net.WebRequestMethods;
+using TodoListBlazorWasm.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
