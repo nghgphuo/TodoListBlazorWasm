@@ -17,6 +17,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+                builder => builder
+            .SetIsOriginAllowed((host) => true)
+            .AllowCredentials()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 builder.Services.AddTransient<ITaskRepository, TaskRepository>();
 
 var app = builder.Build();
@@ -35,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
