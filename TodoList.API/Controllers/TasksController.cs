@@ -53,7 +53,6 @@ namespace TodoList.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = task.Id }, task);
         }
 
-
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] TaskUpdateRequest request)
