@@ -19,5 +19,5 @@ This source code for Blazor for beginners course. We will make a Todo list proje
 
 # References
 
-- Microsoft Docs: https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-5.0
+- Microsoft Docs: https://docs.microsoft.com/en-us/aspnet/core/blazor/?view=aspnetcore-6.0
 - Blazor University: https://blazor-university.com/

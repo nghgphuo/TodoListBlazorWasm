@@ -12,6 +12,8 @@ builder.Services.AddBlazoredToast();
 builder.Services.AddTransient<ITaskApiClient, TaskApiClient>();
 builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5001") });
+builder.Services.AddScoped(sp => new HttpClient { 
+    BaseAddress = new Uri(builder.Configuration["BackendApiUrl"])
+});
 
 await builder.Build().RunAsync();
