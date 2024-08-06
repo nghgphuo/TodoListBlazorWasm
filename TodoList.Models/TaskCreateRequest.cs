@@ -7,7 +7,7 @@ namespace TodoList.Models
     {
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [MaxLength(250, ErrorMessage = "You cannot fill task name over than 20 characters")]
+        [MaxLength(20, ErrorMessage = "You cannot fill task name over than 20 characters")]
         [Required(ErrorMessage = "Please enter your task name")]
         public string Name { get; set; }
 
