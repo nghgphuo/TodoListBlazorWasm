@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using TodoList.API.Data;
 using TodoList.API.Extensions;
@@ -22,9 +22,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy",
                 builder => builder
             .SetIsOriginAllowed((host) => true)
-            .AllowCredentials()
             .AllowAnyHeader()
-            .AllowCredentials());
+            .AllowAnyMethod() // Cho phép tất cả các phương thức HTTP
+            .AllowCredentials()); // Chỉ cần gọi AllowCredentials một lần
 });
 
 builder.Services.AddTransient<ITaskRepository, TaskRepository>();
