@@ -4,7 +4,7 @@ This source code for Blazor for beginners course. We will make a Todo list proje
 
 # Techstack
 
-- ASP.NET 5
+- ASP.NET 6
 - REST API
 - SQL Server
 - Entity Framework Core

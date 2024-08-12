@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using TodoList.Models;
 using TodoListBlazorWasm.Components;
+using TodoListBlazorWasm.Pages.Components;
 using TodoListBlazorWasm.Services;
 
 namespace TodoListBlazorWasm.Pages
@@ -9,6 +10,7 @@ namespace TodoListBlazorWasm.Pages
     {
         [Inject] private ITaskApiClient TaskApiClient { set; get; }
         protected Confirmation DeleteConfirmation { set; get; }
+        protected AssignTask AssignTaskDialog { set; get; }
 
         private Guid DeleteId { get; set; }
 
@@ -36,6 +38,16 @@ namespace TodoListBlazorWasm.Pages
                 await TaskApiClient.DeleteTask(DeleteId);
                 Tasks = await TaskApiClient.GetTaskList(TaskListSearch);
             }
+        }
+        public void OpenAssignPopup(Guid id)
+        {
+            AssignTaskDialog.Show(id);
+        }
+
+        public async Task AssignTaskSuccess(bool result)
+        {
+            if (result)
+                Tasks = await TaskApiClient.GetTaskList(TaskListSearch);
         }
     }
 }
