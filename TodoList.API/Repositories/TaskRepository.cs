@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TodoList.API.Data;
 using TodoList.Models;
+using TodoList.Models.SeedWork;
 using Task = TodoList.API.Entities.Task;
 
 namespace TodoList.API.Repositories
@@ -34,7 +35,7 @@ namespace TodoList.API.Repositories
             return await _context.Tasks.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Task>> GetTaskList(TaskListSearch taskListSearch)
+        public async Task<PagedList<Task>> GetTaskList(TaskListSearch taskListSearch)
         {
             var query = _context.Tasks
                 .Include(x => x.Assignee).AsQueryable();
@@ -48,7 +49,13 @@ namespace TodoList.API.Repositories
             if (taskListSearch.Priority.HasValue)
                 query = query.Where(x => x.Priority == taskListSearch.Priority.Value);
 
-            return await query.OrderByDescending(x => x.CreatedDate).ToListAsync();
+            var count = await query.CountAsync();
+
+            var data = await query.OrderByDescending(x => x.CreatedDate)
+                .Skip((taskListSearch.PageNumber - 1) * taskListSearch.PageSize)
+                .Take(taskListSearch.PageSize)
+                .ToListAsync();
+            return new PagedList<Task>(data, count, taskListSearch.PageNumber, taskListSearch.PageSize);
         }
 
         public async Task<Task> Update(Task task)

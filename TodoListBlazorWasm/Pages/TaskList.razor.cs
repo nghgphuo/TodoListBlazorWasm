@@ -4,12 +4,15 @@ using TodoList.Models.SeedWork;
 using TodoListBlazorWasm.Components;
 using TodoListBlazorWasm.Pages.Components;
 using TodoListBlazorWasm.Services;
+using TodoListBlazorWasm.Shared;
 
 namespace TodoListBlazorWasm.Pages
 {
     public partial class TaskList
     {
         [Inject] private ITaskApiClient TaskApiClient { set; get; }
+        [CascadingParameter]
+        private Error Error { set; get; }
         protected Confirmation DeleteConfirmation { set; get; }
         protected AssignTask AssignTaskDialog { set; get; }
 
@@ -54,9 +57,16 @@ namespace TodoListBlazorWasm.Pages
 
         private async Task GetTasks()
         {
-            var pagingResponse = await TaskApiClient.GetTaskList(TaskListSearch);
-            Tasks = pagingResponse.Items;
-            MetaData = pagingResponse.MetaData;
+            try
+            {
+                var pagingResponse = await TaskApiClient.GetTaskList(TaskListSearch);
+                Tasks = pagingResponse.Items;
+                MetaData = pagingResponse.MetaData;
+            }
+            catch (Exception ex)
+            {
+                Error.ProcessError(ex);
+            }
         }
 
         private async Task SelectedPage(int page)
