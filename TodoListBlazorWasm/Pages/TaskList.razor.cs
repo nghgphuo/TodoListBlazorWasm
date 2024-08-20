@@ -11,6 +11,7 @@ namespace TodoListBlazorWasm.Pages
     public partial class TaskList
     {
         [Inject] private ITaskApiClient TaskApiClient { set; get; }
+
         [CascadingParameter]
         private Error Error { set; get; }
         protected Confirmation DeleteConfirmation { set; get; }
