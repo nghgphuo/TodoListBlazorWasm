@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
-
+@using Microsoft.AspNetCore.Components.Authorization;
 
 <BlazoredToasts Position="ToastPosition.BottomRight"
                 Timeout="5"
@@ -17,8 +17,18 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="/login" class="ml-md-auto">Login</a>
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            <AuthorizeView>
+                <Authorized>
+                    Hello, @context.User.Identity.Name
+                    <a href="/logout">Logout</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/login" class="ml-md-auto">Login</a>
+                </NotAuthorized>
+            </AuthorizeView>
+
+
+            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
         </div>
 
         <article class="content px-4">
